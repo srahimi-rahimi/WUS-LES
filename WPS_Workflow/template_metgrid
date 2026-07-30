@@ -1,0 +1,38 @@
+#!/bin/bash
+#PBS -N xxx
+#PBS -l select=1:ncpus=128:mpiprocs=32
+#PBS -l walltime=08:00:00
+#PBS -A WYOM0247
+#PBS -j oe
+#PBS -q main
+#PBS -l job_priority=premium
+
+set -euo pipefail
+
+module --force purge
+module load ncarenv/23.06
+module load intel-classic/2023.0.0
+module load hdf5/1.12.2
+module load cray-mpich/8.1.25
+module load craype/2.7.20
+module load netcdf/4.9.2
+module load ncarcompilers/1.0.0
+
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+
+cd "${PBS_O_WORKDIR}"
+
+rm -f metgrid.log.* metgrid.out
+
+echo "Started: $(date)"
+
+mpiexec -n 32 ./metgrid.exe > metgrid.out 2>&1
+mv met_em* ../met_em_files
+
+rc=$?
+
+echo "Finished: $(date)"
+echo "Exit status: ${rc}"
+
+exit "${rc}"
