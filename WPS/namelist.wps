@@ -1,0 +1,49 @@
+!Stefan is a doofus
+&share
+ wrf_core = 'ARW',
+ max_dom = 6,
+ active_grid = .true., .true., .true.,
+               .true., .true., .true.,
+ start_date = "",
+ end_date = "" ,
+interval_seconds = 21600,
+ io_form_geogrid = 2,
+ debug_level = 0
+/
+
+&geogrid
+ ! hierarchy: d02<-d01 (×5), d03<-d02 (×3), d04<-d03 (×5 LES Sonoma), d05<-d03 (×5 LES LA), d06 <-d03 (x5 LES Front Range)
+ parent_id         =   1,   1,   2,   3,   3,  3,
+ parent_grid_ratio =   1,   5,   3,   5,   5,  5,
+ i_parent_start    =   1,  87,  200,  210, 195, 555,
+ j_parent_start    =   1,  67,  250, 510, 315,  240,
+ s_we              =   1,   1,   1,   1,   1,   1,
+ s_sn              =   1,   1,   1,   1,   1,   1,
+ e_we              = 300, 651, 1000, 1001, 651,  1251,
+ e_sn              = 300, 701, 901, 1001, 801,  1101,
+
+ ! USGS GLCC (24-cat) everywhere; push high-res terrain only in the innermost nests.
+ geog_data_res = 'landuse_30s+usgs_lakes+gtopo_30s+default',          ! d01
+                 'landuse_30s+usgs_lakes+gtopo_30s+default',          ! d02
+                 'landuse_30s+usgs_lakes+gtopo_30s+default',          ! d03
+                 'landuse_30s+usgs_lakes+srtm_3s+gtopo_30s+default',  ! d04 (LES Sonoma)
+                 'landuse_30s+usgs_lakes+srtm_3s+gtopo_30s+default',  ! d05 (LES LA)
+                 'landuse_30s+usgs_lakes+srtm_3s+gtopo_30s+default',  ! d06 (LES Front Range)
+
+
+ dx        = 45000,
+ dy        = 45000,
+ map_proj  = 'lambert',
+ ref_lat   =  38.0,
+ ref_lon   = -118.0,
+ truelat1  =  30.0,
+ truelat2  =  60.0,
+ stand_lon = -70.0,
+ geog_data_path = '/glade/work/wrfhelp/WPS_GEOG/'
+/
+
+&metgrid
+ fg_name         = 'FILE',
+ io_form_metgrid = 2,
+/
+

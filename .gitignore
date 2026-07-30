@@ -1,0 +1,63 @@
+cat > .gitignore <<'EOF'
+# Compiled code
+*.o
+*.obj
+*.mod
+*.a
+*.so
+*.exe
+
+# Compiler and runtime output
+*.log
+*.out
+*.err
+rsl.out.*
+rsl.error.*
+wrfout*
+wrfrst*
+wrfinput*
+wrfbdy*
+auxhist*
+diag_*
+fort.*
+
+# WRF build configuration
+WRF/configure.wrf
+WRF/compile.log
+
+# WPS build configuration and generated links
+WPS/configure.wps
+WPS/GEOGRID.TBL
+WPS/METGRID.TBL
+WPS/geogrid/GEOGRID.TBL
+WPS/metgrid/METGRID.TBL
+
+# WPS intermediate and model input files
+WPS/GRIBFILE.*
+WPS/FILE:*
+WPS/PFILE:*
+WPS/geo_em.d*.nc
+WPS/met_em.d*.nc
+WPS/PRES:*
+WPS/SURF:*
+
+# Common large data files
+*.nc
+*.grb
+*.grib
+*.grb2
+*.grib2
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Temporary/editor files
+*.bak
+*.tmp
+*.swp
+*~
+.DS_Store
+__pycache__/
+*.pyc
+EOF
