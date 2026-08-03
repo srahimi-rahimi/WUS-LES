@@ -751,9 +751,11 @@ mpas_name=uReconstructMeridional
 ========================================
 name=SST
         interp_option=sixteen_pt+wt_average_16pt+search
-        fill_missing=0.
         missing_value=-99999
         flag_in_output=FLAG_SST
+        fill_missing=-999
+        interp_mask = LANDSEA(1)
+        masked=land
 ========================================
 name=QV
 mpas_name=qv
